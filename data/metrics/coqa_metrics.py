@@ -228,7 +228,7 @@ def get_final_text(pred_text, orig_text, do_lower_case, verbose_logging=False):
     # We don't want to return `orig_text` because it contains the extra "'s".
     #
     # We don't want to return `pred_text` because it's already been normalized
-    # (the SQuAD eval script also does punctuation stripping/lower casing but
+    # (the CoQA eval script also does punctuation stripping/lower casing but
     # our tokenizer does additional normalization like stripping accent
     # characters).
     #
