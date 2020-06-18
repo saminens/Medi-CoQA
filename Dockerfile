@@ -19,8 +19,8 @@ RUN python3 -m pip install --no-cache-dir --upgrade pip && \
     torch==1.4.0
 
 WORKDIR /workspace
-COPY . transformers-coqa/
-RUN cd transformers-coqa/ && \
+COPY . Medi-CoQA/
+RUN cd Medi-CoQA/ && \
     pip3 install -r requirements.txt && \
     python3 -m spacy download en && \
     wget https://nlp.stanford.edu/data/coqa/coqa-train-v1.0.json -O data/coqa-train-v1.0.json && \
