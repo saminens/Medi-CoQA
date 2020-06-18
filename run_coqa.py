@@ -43,7 +43,6 @@ from model.modeling_auto import MODEL_FOR_CONVERSATIONAL_QUESTION_ANSWERING_MAPP
     AutoModelForConversationalQuestionAnswering
 from data.processors.coqa import CoqaProcessor, CoqaResult, coqa_convert_examples_to_features
 from data.metrics.coqa_metrics import compute_predictions_logits, coqa_evaluate
-from utils.adversarial import PGD
 from utils.tools import count_parameters
 
 try:
@@ -73,9 +72,6 @@ def to_list(tensor):
 
 
 def train(args, train_dataset, model, tokenizer):
-    # add adversarial training
-    pgd = PGD(model)
-    K = 3
 
     """ Train the model """
     if args.local_rank in [-1, 0]:
@@ -225,30 +221,6 @@ def train(args, train_dataset, model, tokenizer):
                     scaled_loss.backward()
             else:
                 loss.backward()
-
-            # adversarial training
-            if args.adversarial:
-                pgd.backup_grad()
-                for t in range(K):
-                    pgd.attack(is_first_attack=(t == 0))
-                    if t != K - 1:
-                        model.zero_grad()
-                    else:
-                        pgd.restore_grad()
-                    loss_adv = model(**inputs)
-
-                    if args.n_gpu > 1:
-                        loss_adv = loss_adv.mean()  # mean() to average on multi-gpu parallel (not distributed) training
-                    if args.gradient_accumulation_steps > 1:
-                        loss_adv = loss_adv / args.gradient_accumulation_steps
-
-                    if args.fp16:
-                        with amp.scale_loss(loss_adv, optimizer) as scaled_loss:
-                            scaled_loss.backward()
-                    else:
-                        loss_adv.backward()
-
-                pgd.restore()
 
             tr_loss += loss.item()
             if (step + 1) % args.gradient_accumulation_steps == 0:
@@ -530,7 +502,6 @@ def main():
     parser.add_argument(
         "--do_lower_case", action="store_true", help="Set this flag if you are using an uncased model."
     )
-    parser.add_argument("--adversarial", action="store_true", help="Whether do adversarial training.")
 
     parser.add_argument("--per_gpu_train_batch_size", default=8,
                         type=int, help="Batch size per GPU/CPU for training.")
@@ -646,16 +617,6 @@ def main():
                 args.output_dir
             )
         )
-
-    # Setup distant debugging if needed
-    if args.server_ip and args.server_port:
-        # Distant debugging - see https://code.visualstudio.com/docs/python/debugging#_attach-to-a-local-script
-        import ptvsd
-
-        print("Waiting for debugger attach")
-        ptvsd.enable_attach(
-            address=(args.server_ip, args.server_port), redirect_output=True)
-        ptvsd.wait_for_attach()
 
     # Setup CUDA, GPU & distributed training
     if args.local_rank == -1 or args.no_cuda:
