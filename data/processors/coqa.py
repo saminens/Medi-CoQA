@@ -617,7 +617,7 @@ class CoqaProcessor(DataProcessor):
 
 class CoqaResult(object):
     """
-    Constructs a SquadResult which can be used to evaluate a model's output on the SQuAD dataset.
+    Constructs a CoQAResult which can be used to evaluate a model's output on the CoQA dataset.
 
     Args:
         unique_id: The unique identifier corresponding to that example.

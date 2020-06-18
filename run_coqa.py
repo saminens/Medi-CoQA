@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" Finetuning the library models for conversational-question-answering on Coqa (Bert, Albert，Roberta)."""
+""" Finetuning the library models for conversational-question-answering on Coqa (Bert, Albert)."""
 
 import argparse
 import collections
@@ -582,7 +582,7 @@ def main():
         "--verbose_logging",
         action="store_true",
         help="If true, all of the warnings related to data processing will be printed. "
-             "A number of warnings are expected for a normal SQuAD evaluation.",
+             "A number of warnings are expected for a normal CoQA evaluation.",
     )
 
     parser.add_argument("--logging_steps", type=int,
