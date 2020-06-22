@@ -11,4 +11,7 @@ python3 run_coqa.py --model_type albert \
                    --do_lower_case \
                    --per_gpu_train_batch_size 8  \
                    --max_grad_norm -1 \
-                   --weight_decay 0.01
+                   --weight_decay 0.01 \
+                   --threads 8 \
+                   --fp16
+                   
