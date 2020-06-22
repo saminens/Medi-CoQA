@@ -85,7 +85,7 @@ Some commom parameters:
 `adam_epsilon=1e-08, data_dir='data/', do_lower_case=True, doc_stride=128,  fp16=True, history_len=2, learning_rate=3e-05, max_answer_length=30, max_grad_norm=-1.0, max_query_length=64, max_seq_length=512,  per_gpu_eval_batch_size=8, seed=42, train_file='coqa-train-v1.0.json', warmup_steps=2000, weight_decay=0.01,num_train_epochs=2, threads=8`
 
 Best results:
-| Model                             | Em       | F1       | Parameters                                                   |
+| Model                             | em       | F1       | Parameters                                                   |
 | --------------------------------- | -------- | -------- | ------------------------------------------------------------ |
 | albert-base-v2                    | 71.5     | 81.0     | per_gpu_train_batch_size=8                                   |
 | ClinicalBERT                      | 63.8     | 73.7     | per_gpu_train_batch_size=8                                   |
