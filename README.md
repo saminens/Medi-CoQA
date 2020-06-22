@@ -19,10 +19,10 @@ cd transformer-coqa && \
 
 ## Non-Docker Alernative
 
-# install packages 
+### install packages 
 run `pip install -r requirements.txt`
 
-# install language model for spacy
+### install language model for spacy
 python3 -m spacy download en
 ```
 
@@ -67,7 +67,7 @@ Download dataset from [CoQA](https://stanfordnlp.github.io/coqa/)
    ```
 
 5. The estimate training and evaluation time for `albert-base`, 'run_clinicalbert' model on the CoQA task is around **3** hours on AWS server g4dn.2xlarge.
-## Run-evaluate
+### Run-evaluate
 
 After you get the prediction files, you can evaluate on your test set seperately.
 The evaluation script is provided by CoQA.
@@ -79,7 +79,7 @@ python3 evaluate.py --data-file <path_to_dev-v1.0.json> --pred-file <path_to_pre
 
 
 
-## Results
+### Results
 
 Some commom parameters:
 `adam_epsilon=1e-08, data_dir='data/', do_lower_case=True, doc_stride=128,  fp16=True, history_len=2, learning_rate=3e-05, max_answer_length=30, max_grad_norm=-1.0, max_query_length=64, max_seq_length=512,  per_gpu_eval_batch_size=8, seed=42, train_file='coqa-train-v1.0.json', warmup_steps=2000, weight_decay=0.01,num_train_epochs=2, threads=8`
@@ -91,7 +91,7 @@ Best results:
 | ClinicalBERT                      | 63.8     | 73.7     | per_gpu_train_batch_size=8                                   |
 
 
-## Parameters
+### Parameters
 
 Here we will explain some important parameters, for all trainning parameters, you can find in `run_coqa.py`
 
@@ -165,7 +165,7 @@ The following are detailed descrpition on some core scripts:
    1. Load the pre-trained ALBERT model from `transformer` library
    2. Build downstream CoQA tasks architecture on the top of ALBERT last hidden state and pooler output to get the training loss for training and start, end, yes, no, unknown logits for prediction.
 
-## References
+### References
 
 1. [coqa-baselines](https://github.com/stanfordnlp/coqa-baselines)
 2. [transformers](https://github.com/huggingface/transformers)
