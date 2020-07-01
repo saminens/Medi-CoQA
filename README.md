@@ -93,7 +93,7 @@ Best results:
 
 ### Parameters
 
-Here we will explain some important parameters, for all trainning parameters, you can find in `run_coqa.py`
+Here we will explain some important parameters, for all training parameters, you can find in `run_coqa.py`
 
 | Param name                  | Default value        | Details                                                      |
 | --------------------------- | -------------------- | ------------------------------------------------------------ |
